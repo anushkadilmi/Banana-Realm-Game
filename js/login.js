@@ -6,7 +6,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
   const password = document.getElementById("password").value.trim();
 
   // Temporary default credentials for testing
-  const defaultUser = "player1";
+  const defaultUser = "player";
   const defaultPass = "adventure123";
 
   // Stored user credentials (from register page)
