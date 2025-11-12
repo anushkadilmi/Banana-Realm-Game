@@ -1,4 +1,4 @@
-// Game selection functionality
+
 let selectedGame = null;
 
 const games = {
