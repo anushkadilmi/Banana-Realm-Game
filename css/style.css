@@ -1,0 +1,10 @@
+body {
+  background-image: url('../images/jungle.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
