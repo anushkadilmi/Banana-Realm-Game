@@ -1,0 +1,196 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Trebuchet MS', sans-serif;
+}
+
+body {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+              url('../images/banana forest.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  text-align: center;
+  margin: 20px 0 40px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.header h1 {
+  font-size: 42px;
+  color: #ffcc33;
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+}
+
+.header p {
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+.games-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.game-card {
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid #444;
+  border-radius: 15px;
+  padding: 30px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 280px;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+  border-color: #ffcc33;
+  box-shadow: 0 10px 20px rgba(255, 204, 51, 0.2);
+}
+
+.game-card.selected {
+  border-color: #ffcc33;
+  background: rgba(255, 204, 51, 0.1);
+  transform: translateY(-5px);
+}
+
+.game-icon {
+  font-size: 60px;
+  margin-bottom: 20px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-card h2 {
+  font-size: 24px;
+  color: #ffcc33;
+  margin-bottom: 15px;
+}
+
+.game-card p {
+  font-size: 16px;
+  opacity: 0.8;
+  margin-bottom: 15px;
+  flex-grow: 1;
+}
+
+.difficulty {
+  font-size: 14px;
+  padding: 5px 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+.selected-game-info {
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 15px;
+  padding: 30px;
+  width: 80%;
+  text-align: center;
+  margin-bottom: 30px;
+  border: 2px solid #ffcc33;
+}
+
+#gamePreview h3 {
+  font-size: 28px;
+  color: #ffcc33;
+  margin-bottom: 15px;
+}
+
+#gamePreview p {
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+#startGameBtn {
+  background: #ffcc33;
+  color: #333;
+  border: none;
+  border-radius: 30px;
+  padding: 15px 40px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+#startGameBtn:hover:not(:disabled) {
+  background: #ffd966;
+  transform: scale(1.05);
+}
+
+#startGameBtn:disabled {
+  background: #666;
+  color: #999;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.footer {
+  margin-top: 20px;
+}
+
+#backBtn {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid #666;
+  border-radius: 20px;
+  padding: 10px 25px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#backBtn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .games-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .games-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .header h1 {
+    font-size: 32px;
+  }
+  
+  .selected-game-info {
+    width: 95%;
+  }
+}
