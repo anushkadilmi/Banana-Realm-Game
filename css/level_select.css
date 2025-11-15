@@ -5,6 +5,75 @@
   font-family: 'Trebuchet MS', sans-serif;
 }
 
+/* Music Controls */
+.music-controls {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px 15px;
+  border-radius: 25px;
+  border: 1px solid #ffcc33;
+  z-index: 1000;
+}
+
+.music-btn {
+  background: none;
+  border: none;
+  color: #ffcc33;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.music-btn:hover {
+  background: rgba(255, 204, 51, 0.2);
+  transform: scale(1.1);
+}
+
+.volume-control {
+  display: flex;
+  align-items: center;
+}
+
+#volumeSlider {
+  width: 80px;
+  height: 5px;
+  background: #444;
+  border-radius: 5px;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+#volumeSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  background: #ffcc33;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#volumeSlider::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  background: #ffcc33;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+
+
 body {
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
               url('../images/banana forest.png');
@@ -192,5 +261,14 @@ body {
   
   .selected-game-info {
     width: 95%;
+  }
+    .music-controls {
+    top: 10px;
+    left: 10px;
+    padding: 8px 12px;
+  }
+  
+  #volumeSlider {
+    width: 60px;
   }
 }
