@@ -1,0 +1,84 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Page background */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f5f8ff;
+  height: 100vh;
+  padding: 20px;
+}
+
+/* Form Container */
+.container {
+  background: #ffffff;
+  padding: 30px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.1);
+}
+
+/* Page title */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2b4eff;
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 14px;
+  border: 1px solid #d8d8d8;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.2s;
+}
+
+input:focus {
+  border-color: #2b4eff;
+  box-shadow: 0px 0px 4px rgba(43, 78, 255, 0.3);
+}
+
+/* Button */
+button {
+  width: 100%;
+  background: #2b4eff;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #1f3dcc;
+}
+
+/* Success / Error text */
+#successMessage,
+#errorMessage {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 10px;
+  display: none;
+}
+
+#successMessage {
+  color: #2ecc71;
+}
+
+#errorMessage {
+  color: #e74c3c;
+}

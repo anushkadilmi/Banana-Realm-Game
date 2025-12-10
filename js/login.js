@@ -1,36 +1,67 @@
-// Handle login validation
-document.getElementById("loginForm").addEventListener("submit", function(e) {
+import { app } from "./firebaseAuthentication.js";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail
+} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+
+const auth = getAuth(app);
+
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const username = document.getElementById("username").value.trim();
+  const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
 
-  // Temporary default credentials for testing
-  const defaultUser = "player";
-  const defaultPass = "adventure123";
-
-  // Stored user credentials (from register page)
-  const savedUser = localStorage.getItem("username");
-  const savedPass = localStorage.getItem("password");
-
-  if (!username || !password) {
-    alert("Please fill out all fields!");
+  if (!email || !password) {
+    alert("❌ Fill all fields!");
     return;
   }
 
-  // Check against saved credentials OR temporary test credentials
-  if (
-    (username === savedUser && password === savedPass) ||
-    (username === defaultUser && password === defaultPass)
-  ) {
-    alert("Login successful!");
-    window.location.href = "game.html"; // move to main game
-  } else {
-    alert("Invalid username or password. Try again!");
+  try {
+    const userCred = await signInWithEmailAndPassword(auth, email, password);
+
+    if (!userCred.user.emailVerified) {
+      alert("⚠ Email not verified! Check your inbox.");
+      window.location.href = "verify.html";
+      return;
+    }
+
+    alert("🎉 Login successful!");
+
+    setTimeout(() => {
+      window.location.href = "game.html";
+    }, 1000);
+
+  } catch (error) {
+    let msg = "❌ Login failed!";
+    if (error.code === "auth/user-not-found") msg = "⚠ No account found!";
+    if (error.code === "auth/wrong-password") msg = "⚠ Wrong password!";
+
+    alert(msg);
   }
 });
 
-// Redirect to register page
-document.getElementById("registerBtn").addEventListener("click", function() {
+// -------------------- RESET PASSWORD --------------------
+document.getElementById("forgotPassword").addEventListener("click", async () => {
+  const email = document.getElementById("email").value.trim();
+
+  if (!email) {
+    alert("⚠ Enter your email first!");
+    return;
+  }
+
+  try {
+    await sendPasswordResetEmail(auth, email);
+    alert("📩 Password reset link sent! Check your inbox.");
+  } catch (error) {
+    let msg = "❌ Failed to send reset email.";
+    if (error.code === "auth/user-not-found") msg = "⚠ This email has no account!";
+    alert(msg);
+  }
+});
+// -------------------- GO TO REGISTER --------------------
+
+document.getElementById("registerBtn").addEventListener("click", () => {
   window.location.href = "register.html";
 });
