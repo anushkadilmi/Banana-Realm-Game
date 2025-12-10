@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leaderboard - Banana Realm</title>
+  <link rel="stylesheet" href="../css/leaderboard.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>🏆 GLOBAL LEADERBOARD 🏆</h1>
+      <p>Top players across all difficulty levels</p>
+    </header>
+
+    <!-- Difficulty Tabs -->
+    <div class="difficulty-tabs">
+      <button class="tab-btn active" data-difficulty="easy">EASY</button>
+      <button class="tab-btn" data-difficulty="medium">MEDIUM</button>
+      <button class="tab-btn" data-difficulty="hard">HARD</button>
+    </div>
+
+    <!-- Leaderboard Table -->
+    <div class="leaderboard-container">
+      <div class="loading-message" id="loadingMessage">
+        <div class="spinner">🍌</div>
+        <p>Loading leaderboard...</p>
+      </div>
+
+      <table class="leaderboard-table" id="leaderboardTable" style="display: none;">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Score</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboardBody">
+          <!-- Will be populated by JavaScript -->
+        </tbody>
+      </table>
+
+      <div class="no-data-message" id="noDataMessage" style="display: none;">
+        <p>No scores recorded yet. Be the first to play!</p>
+      </div>
+    </div>
+
+    <!-- Your Stats -->
+    <div class="your-stats" id="yourStats" style="display: none;">
+      <h3>YOUR STATS</h3>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-label">Your Rank</div>
+          <div class="stat-value" id="yourRank">-</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Your Best Score</div>
+          <div class="stat-value" id="yourScore">0</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Total Attempts</div>
+          <div class="stat-value" id="yourAttempts">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Navigation -->
+    <div class="footer">
+      <button id="backBtn">← BACK TO HUB</button>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    © 2025 Banana Realm | Jungle Adventures 🍌🌴
+  </footer>
+
+  <script type="module" src="../js/leaderboard.js"></script>
+</body>
+</html>
