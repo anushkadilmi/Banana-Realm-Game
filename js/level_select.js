@@ -1,3 +1,4 @@
+
 // Music functionality
 const backgroundMusic = document.getElementById('backgroundMusic');
 const musicToggle = document.getElementById('musicToggle');
