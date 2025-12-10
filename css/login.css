@@ -87,3 +87,17 @@ footer {
   background: rgba(0,0,0,0.35);
   backdrop-filter: blur(4px);
 }
+.forgot {
+  color: #fff;
+  text-align: right;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.forgot:hover {
+  opacity: 1;
+  text-decoration: underline;
+}

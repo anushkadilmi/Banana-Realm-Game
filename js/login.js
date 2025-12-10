@@ -1,8 +1,8 @@
 import { app } from "./firebaseAuthentication.js";
-
 import {
   getAuth,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 
 const auth = getAuth(app);
@@ -10,36 +10,58 @@ const auth = getAuth(app);
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const username = document.getElementById("username").value.trim();
+  const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
 
-  if (!username || !password) {
-    alert("Please fill all fields!");
+  if (!email || !password) {
+    alert("❌ Fill all fields!");
     return;
   }
 
-  // Convert username → email used in register (same method)
-  const email = `${username}@bananarealm.com`;
-
   try {
-    await signInWithEmailAndPassword(auth, email, password);
+    const userCred = await signInWithEmailAndPassword(auth, email, password);
+
+    if (!userCred.user.emailVerified) {
+      alert("⚠ Email not verified! Check your inbox.");
+      window.location.href = "verify.html";
+      return;
+    }
 
     alert("🎉 Login successful!");
-    window.location.href = "game.html";
+
+    setTimeout(() => {
+      window.location.href = "game.html";
+    }, 1000);
 
   } catch (error) {
-    console.error(error);
+    let msg = "❌ Login failed!";
+    if (error.code === "auth/user-not-found") msg = "⚠ No account found!";
+    if (error.code === "auth/wrong-password") msg = "⚠ Wrong password!";
 
-    let message = "❌ Login failed.";
-    if (error.code === "auth/user-not-found") message = "⚠ No such username!";
-    if (error.code === "auth/wrong-password") message = "⚠ Incorrect password!";
-    if (error.code === "auth/invalid-email") message = "⚠ Invalid username!";
-
-    alert(message);
+    alert(msg);
   }
 });
 
-// Go to register page
-document.getElementById("registerBtn").addEventListener("click", function () {
- window.location.href = "../html/register.html";
+// -------------------- RESET PASSWORD --------------------
+document.getElementById("forgotPassword").addEventListener("click", async () => {
+  const email = document.getElementById("email").value.trim();
+
+  if (!email) {
+    alert("⚠ Enter your email first!");
+    return;
+  }
+
+  try {
+    await sendPasswordResetEmail(auth, email);
+    alert("📩 Password reset link sent! Check your inbox.");
+  } catch (error) {
+    let msg = "❌ Failed to send reset email.";
+    if (error.code === "auth/user-not-found") msg = "⚠ This email has no account!";
+    alert(msg);
+  }
+});
+// -------------------- GO TO REGISTER --------------------
+
+document.getElementById("registerBtn").addEventListener("click", () => {
+  window.location.href = "register.html";
 });

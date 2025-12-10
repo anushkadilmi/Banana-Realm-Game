@@ -1,60 +1,56 @@
-import { app } from "./firebaseAuthentication.js";
+console.log("register.js loaded!");
 
-import { 
-  getAuth, 
-  createUserWithEmailAndPassword 
+import { app, database } from "./firebaseAuthentication.js";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  sendEmailVerification
 } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 
-import { 
-  getDatabase, 
-  ref, 
-  set 
-} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
+import { ref, set } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
 
 const auth = getAuth(app);
-const db = getDatabase(app);
 
 document.getElementById("registerForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const username = document.getElementById("newUser").value.trim();
+  const email = document.getElementById("newEmail").value.trim();
   const password = document.getElementById("newPass").value.trim();
-  const confirmPassword = document.getElementById("confirmPass").value.trim();
+  const confirm = document.getElementById("confirmPass").value.trim();
 
-  if (password !== confirmPassword) {
+  if (password !== confirm) {
     alert("❌ Passwords do not match!");
     return;
   }
-
-  if (password.length < 6) {
-    alert("❌ Password must be at least 6 characters!");
-    return;
-  }
-
-  const email = `${username}@bananarealm.com`;
 
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    await set(ref(db, "Users/" + user.uid), {
-      username,
+    await sendEmailVerification(user);
+
+    await set(ref(database, "Users/" + user.uid), {
+      username: username,
+      email: email,
       createdAt: new Date().toISOString(),
-      highScore: 0,
-      level: 1
+      highScore: 0
     });
 
-    alert("🎉 Account created successfully! You can now log in.");
-    window.location.href = "login.html"; 
+    alert("📩 Account created! Verification email sent.");
+
+    setTimeout(() => {
+      window.location.href = "verify.html";
+    }, 800);
 
   } catch (error) {
     console.error(error);
 
-    let message = "❌ Something went wrong.";
-    if (error.code === "auth/email-already-in-use") message = "⚠ Username already exists!";
-    if (error.code === "auth/invalid-email") message = "⚠ Invalid username.";
-    if (error.code === "auth/weak-password") message = "⚠ Weak password.";
+    let msg = "❌ Something went wrong.";
+    if (error.code === "auth/email-already-in-use") msg = "⚠ Email already registered!";
+    if (error.code === "auth/invalid-email") msg = "⚠ Invalid email!";
+    if (error.code === "auth/weak-password") msg = "⚠ Weak password!";
 
-    alert(message);
+    alert(msg);
   }
 });
