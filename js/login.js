@@ -1,36 +1,45 @@
-// Handle login validation
-document.getElementById("loginForm").addEventListener("submit", function(e) {
+import { app } from "./firebaseAuthentication.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+
+const auth = getAuth(app);
+
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
 
-  // Temporary default credentials for testing
-  const defaultUser = "player";
-  const defaultPass = "adventure123";
-
-  // Stored user credentials (from register page)
-  const savedUser = localStorage.getItem("username");
-  const savedPass = localStorage.getItem("password");
-
   if (!username || !password) {
-    alert("Please fill out all fields!");
+    alert("Please fill all fields!");
     return;
   }
 
-  // Check against saved credentials OR temporary test credentials
-  if (
-    (username === savedUser && password === savedPass) ||
-    (username === defaultUser && password === defaultPass)
-  ) {
-    alert("Login successful!");
-    window.location.href = "game.html"; // move to main game
-  } else {
-    alert("Invalid username or password. Try again!");
+  // Convert username → email used in register (same method)
+  const email = `${username}@bananarealm.com`;
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+
+    alert("🎉 Login successful!");
+    window.location.href = "game.html";
+
+  } catch (error) {
+    console.error(error);
+
+    let message = "❌ Login failed.";
+    if (error.code === "auth/user-not-found") message = "⚠ No such username!";
+    if (error.code === "auth/wrong-password") message = "⚠ Incorrect password!";
+    if (error.code === "auth/invalid-email") message = "⚠ Invalid username!";
+
+    alert(message);
   }
 });
 
-// Redirect to register page
-document.getElementById("registerBtn").addEventListener("click", function() {
-  window.location.href = "register.html";
+// Go to register page
+document.getElementById("registerBtn").addEventListener("click", function () {
+ window.location.href = "../html/register.html";
 });
