@@ -1,3 +1,4 @@
+
 // Music functionality
 const backgroundMusic = document.getElementById('backgroundMusic');
 const musicToggle = document.getElementById('musicToggle');
@@ -128,6 +129,7 @@ backgroundMusic.addEventListener('error', function(e) {
     musicToggle.title = 'Audio file not found. Please check audio files.';
     musicToggle.textContent = '❌';
 });
+
 
 let selectedGame = null;
 

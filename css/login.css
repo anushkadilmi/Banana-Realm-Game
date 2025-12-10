@@ -6,30 +6,36 @@ body {
   background-size: cover;
   background-position: center;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
   font-family: 'Trebuchet MS', sans-serif;
   color: white;
 }
 
+/* Main container (character left, login right) */
 .login-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 85%;
-  max-width: 1200px;
+  width: 90%;
+  max-width: 1400px;
+  margin: auto;
+  height: 80vh;
 }
 
-.character img {
-  width: 380px;
-  height: auto;
+/* LEFT SIDE (empty because background already shows character) */
+.left-side {
+  width: 55%;
 }
 
+/* LOGIN BOX - Right aligned */
 .login-box {
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.65);
   padding: 40px;
   border-radius: 15px;
-  width: 350px;
+  width: 360px;
+  margin-left: auto;
+  backdrop-filter: blur(3px);
 }
 
 h1 {
@@ -69,4 +75,15 @@ button {
 
 button:hover {
   background-color: #ffcc33;
+}
+
+/* FOOTER */
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 14px;
+  color: #fff;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(4px);
 }

@@ -4,6 +4,7 @@
   box-sizing: border-box;
   font-family: 'Trebuchet MS', sans-serif;
 }
+
 .music-controls {
   position: fixed;
   top: 20px;
@@ -81,6 +82,7 @@
   font-size: 14px;
   z-index: 999;
 }
+
 body {
   background-image: url('../images/banana forest.png');
   background-size: cover;
@@ -153,6 +155,7 @@ body {
   opacity: 0.8;
 }
 
+
 /* FOOTER */
 footer {
   width: 100%;
@@ -162,6 +165,16 @@ footer {
   color: #fff;
   background: rgba(0,0,0,0.35);
   backdrop-filter: blur(4px);
+}
+
+
+
+.footer {
+  margin-top: auto;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.7;
 }
 
 
@@ -179,6 +192,7 @@ footer {
     font-size: 20px;
   }
 
+
    .music-controls {
     top: 10px;
     left: 10px;
@@ -190,4 +204,6 @@ footer {
     right: 10px;
     font-size: 12px;
   }
+
+
 }
