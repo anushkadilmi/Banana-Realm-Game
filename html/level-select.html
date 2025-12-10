@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Select Your Adventure - Banana Realm</title>
+  <title>Select Your Difficulty - Banana Realm</title>
   <link rel="stylesheet" href="../css/level_select.css" />
 </head>
 <body>
-
-      <!-- Music Controls -->
+  <!-- Music Controls -->
   <div class="music-controls">
     <button id="musicToggle" class="music-btn">🔇</button>
     <div class="volume-control">
@@ -18,41 +17,78 @@
 
   <div class="container">
     <header class="header">
-      <h1>SELECT YOUR ADVENTURE</h1>
-      <p>Choose your path in the Banana Realm</p>
+      <h1>SELECT YOUR DIFFICULTY</h1>
+      <p>Progress through difficulty levels to unlock new challenges</p>
     </header>
 
+    <!-- Difficulty Level Cards -->
     <div class="games-container">
-      <div class="game-card" id="jungleExplorer">
-        <div class="game-icon">🌴</div>
-        <h2>JUNGLE EXPLORER</h2>
-        <p>Navigate through dense jungles and discover hidden treasures</p>
-        <div class="difficulty">Difficulty: Medium</div>
-      </div>
-
-      <div class="game-card" id="bananaRanger">
+      <!-- Easy Level -->
+      <div class="game-card unlocked" id="bananaRanger">
+        <div class="card-badge easy-badge">EASY</div>
         <div class="game-icon">🍌</div>
         <h2>BANANA RANGER</h2>
-        <p>Protect the banana groves from mischievous monkeys</p>
-        <div class="difficulty">Difficulty: Easy</div>
+        <p>Perfect for beginners! Learn the basics of banana mathematics.</p>
+        <div class="difficulty-info">
+          <span class="puzzles">6 Puzzles</span>
+          <span class="time">60s each</span>
+          <span class="min-score">Min Score: 300</span>
+        </div>
+        <div class="level-status">✓ Available</div>
       </div>
 
+      <!-- Medium Level -->
+      <div class="game-card" id="jungleExplorer">
+        <div class="card-badge medium-badge">MEDIUM</div>
+        <div class="game-icon">🌴</div>
+        <h2>JUNGLE EXPLORER</h2>
+        <p>Navigate through challenging puzzles and discover hidden treasures.</p>
+        <div class="difficulty-info">
+          <span class="puzzles">6 Puzzles</span>
+          <span class="time">45s each</span>
+          <span class="min-score">Min Score: 500</span>
+        </div>
+        <div class="level-status locked-status">🔒 Unlock by beating EASY</div>
+      </div>
+
+      <!-- Hard Level -->
       <div class="game-card" id="realmGuardian">
+        <div class="card-badge hard-badge">HARD</div>
         <div class="game-icon">🛡️</div>
         <h2>REALM GUARDIAN</h2>
-        <p>Defend the Banana Realm from ancient threats</p>
-        <div class="difficulty">Difficulty: Hard</div>
+        <p>Master the ultimate challenge! Only the best can defend the realm.</p>
+        <div class="difficulty-info">
+          <span class="puzzles">6 Puzzles</span>
+          <span class="time">30s each</span>
+          <span class="min-score">Min Score: 800</span>
+        </div>
+        <div class="level-status locked-status">🔒 Unlock by beating MEDIUM</div>
       </div>
     </div>
 
+    <!-- Selected Game Info -->
     <div class="selected-game-info">
       <div id="gamePreview">
-        <h3 id="selectedGameTitle">Select a game to begin</h3>
-        <p id="selectedGameDesc">Choose one of the adventures above to see details</p>
+        <h3 id="selectedGameTitle">Select a difficulty to begin</h3>
+        <p id="selectedGameDesc">Choose a difficulty level above to see details and start playing</p>
       </div>
       <button id="startGameBtn" disabled>START GAME</button>
     </div>
 
+    <!-- Game Rules/Info
+    <div class="game-rules">
+      <h3>⚙️ GAME RULES</h3>
+      <ul>
+        <li>You have 3 lives per game session</li>
+        <li>Wrong answers cost 1 life</li>
+        <li>Running out of time costs 1 life</li>
+        <li>You must reach the minimum score to pass a level</li>
+        <li>Complete Easy to unlock Medium difficulty</li>
+        <li>Complete Medium to unlock Hard difficulty</li>
+      </ul>
+    </div> -->
+
+    <!-- Footer Navigation -->
     <div class="footer">
       <button id="backBtn">← BACK TO HUB</button>
     </div>
@@ -65,11 +101,10 @@
     Your browser does not support the audio element.
   </audio>
 
-   <footer>
+  <footer class="page-footer">
     © 2025 Banana Realm | Jungle Adventures 🍌🌴
   </footer>
 
-  
   <script src="../js/level_select.js"></script>
 </body>
 </html>

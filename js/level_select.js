@@ -3,57 +3,39 @@ const backgroundMusic = document.getElementById('backgroundMusic');
 const musicToggle = document.getElementById('musicToggle');
 const volumeSlider = document.getElementById('volumeSlider');
 
-// Initialize music state from localStorage
 let isMusicPlaying = localStorage.getItem('musicPlaying') === 'true';
 let volume = localStorage.getItem('musicVolume') || 0.7;
 let musicEnabled = false;
 
-// Set initial volume
 backgroundMusic.volume = volume;
 volumeSlider.value = volume;
 
-// Initialize music state
 function initializeMusic() {
-    // Start with music paused due to browser restrictions
     isMusicPlaying = false;
     musicToggle.textContent = '🔇';
     backgroundMusic.pause();
-    
-    // Add initial tooltip
     musicToggle.title = 'Click anywhere first to enable music';
     musicToggle.style.opacity = '0.7';
-    
-    // Enable interactive start
     enableMusicInteraction();
 }
 
-// Enable music after user interaction
 function enableMusicInteraction() {
     const enableMusic = () => {
-        // Mark music as enabled
         musicEnabled = true;
-        
-        // Remove event listeners after first interaction
         document.removeEventListener('click', enableMusic);
         document.removeEventListener('keydown', enableMusic);
-        
-        // Now music can be controlled
         musicToggle.style.cursor = 'pointer';
         musicToggle.style.opacity = '1';
         musicToggle.title = 'Click to play music';
-        
-        // If music was playing before, resume it
         if (isMusicPlaying) {
             playMusic();
         }
     };
     
-    // Add event listeners for first user interaction
     document.addEventListener('click', enableMusic, { once: true });
     document.addEventListener('keydown', enableMusic, { once: true });
 }
 
-// Play music with proper error handling
 function playMusic() {
     if (!musicEnabled) return false;
     
@@ -75,7 +57,6 @@ function playMusic() {
     return true;
 }
 
-// Pause music
 function pauseMusic() {
     backgroundMusic.pause();
     musicToggle.textContent = '🔇';
@@ -83,7 +64,6 @@ function pauseMusic() {
     localStorage.setItem('musicPlaying', false);
 }
 
-// Toggle music play/pause
 musicToggle.addEventListener('click', function() {
     if (!musicEnabled) {
         musicToggle.title = 'Click anywhere on the page first to enable music';
@@ -97,12 +77,10 @@ musicToggle.addEventListener('click', function() {
     }
 });
 
-// Volume control
 volumeSlider.addEventListener('input', function() {
     backgroundMusic.volume = this.value;
     localStorage.setItem('musicVolume', this.value);
     
-    // If volume is set to 0 and music is playing, show muted icon
     if (this.value == 0 && isMusicPlaying) {
         musicToggle.textContent = '🔈';
     } else if (isMusicPlaying) {
@@ -110,7 +88,6 @@ volumeSlider.addEventListener('input', function() {
     }
 });
 
-// Handle page visibility change
 document.addEventListener('visibilitychange', function() {
     if (document.hidden && isMusicPlaying) {
         backgroundMusic.pause();
@@ -121,7 +98,6 @@ document.addEventListener('visibilitychange', function() {
     }
 });
 
-// Handle audio errors
 backgroundMusic.addEventListener('error', function(e) {
     console.error('Audio error:', e);
     musicToggle.style.color = '#ff4444';
@@ -129,44 +105,61 @@ backgroundMusic.addEventListener('error', function(e) {
     musicToggle.textContent = '❌';
 });
 
+// Game selection logic
 let selectedGame = null;
 
 const games = {
+  bananaRanger: {
+    title: "BANANA RANGER",
+    description: "Start your journey! Master the basics of banana mathematics in this introductory adventure.",
+    difficulty: "Easy",
+    difficultyLevel: "easy",
+    icon: "🍌"
+  },
   jungleExplorer: {
     title: "JUNGLE EXPLORER",
-    description: "Embark on an epic journey through uncharted jungles. Discover ancient ruins, solve puzzles, and collect rare bananas while avoiding dangerous wildlife.",
-    difficulty: "Medium"
-  },
-  bananaRanger: {
-    title: "BANANA RANGER", 
-    description: "Protect the precious banana groves from mischievous monkeys and other threats. Use your quick reflexes and strategic thinking to keep the bananas safe!",
-    difficulty: "Easy"
+    description: "Embark on an epic journey through uncharted jungles with increasingly challenging puzzles.",
+    difficulty: "Medium",
+    difficultyLevel: "medium",
+    icon: "🌴"
   },
   realmGuardian: {
     title: "REALM GUARDIAN",
-    description: "Defend the Banana Realm from ancient evil forces. Master powerful abilities and lead the defense against darkness in this challenging adventure.",
-    difficulty: "Hard"
+    description: "Defend the Banana Realm from ancient evil forces. Only the most skilled can succeed!",
+    difficulty: "Hard",
+    difficultyLevel: "hard",
+    icon: "🛡️"
   }
+};
+
+// Game progression requirements
+const progressionRequirements = {
+    easy: { unlocked: true, required: false },
+    medium: { unlocked: false, required: 'easy' },
+    hard: { unlocked: false, required: 'medium' }
 };
 
 // Add click events to game cards
 document.querySelectorAll('.game-card').forEach(card => {
   card.addEventListener('click', function() {
-    // Remove selected class from all cards
+    const gameId = this.id;
+    const game = games[gameId];
+    
+    // Check if game is unlocked
+    if (!progressionRequirements[game.difficultyLevel].unlocked) {
+        const requiredLevel = progressionRequirements[game.difficultyLevel].required;
+        alert(`⚠️ You must complete ${games[Object.keys(games).find(k => games[k].difficultyLevel === requiredLevel)].title} (${requiredLevel.toUpperCase()}) first!`);
+        return;
+    }
+    
     document.querySelectorAll('.game-card').forEach(c => {
       c.classList.remove('selected');
     });
     
-    // Add selected class to clicked card
     this.classList.add('selected');
-    
-    // Get game ID and update preview
-    const gameId = this.id;
     selectedGame = gameId;
     
     updateGamePreview(gameId);
-    
-    // Enable start game button
     document.getElementById('startGameBtn').disabled = false;
   });
 });
@@ -179,25 +172,50 @@ function updateGamePreview(gameId) {
   document.getElementById('selectedGameDesc').textContent = game.description;
 }
 
-// Start game button functionality - UPDATED
+// Unlock levels based on progression
+function updateGameAvailability() {
+    const progression = JSON.parse(localStorage.getItem('levelProgression') || '{}');
+    
+    // Easy is always unlocked
+    progressionRequirements.easy.unlocked = true;
+    
+    // Medium unlocked if Easy is completed
+    if (progression.easy && progression.easy.passed) {
+        progressionRequirements.medium.unlocked = true;
+        const mediumCard = document.getElementById('jungleExplorer');
+        if (mediumCard) mediumCard.classList.add('unlocked');
+    } else {
+        const mediumCard = document.getElementById('jungleExplorer');
+        if (mediumCard) mediumCard.classList.add('locked');
+    }
+    
+    // Hard unlocked if Medium is completed
+    if (progression.medium && progression.medium.passed) {
+        progressionRequirements.hard.unlocked = true;
+        const hardCard = document.getElementById('realmGuardian');
+        if (hardCard) hardCard.classList.add('unlocked');
+    } else {
+        const hardCard = document.getElementById('realmGuardian');
+        if (hardCard) hardCard.classList.add('locked');
+    }
+}
+
+// Start game button functionality
 document.getElementById('startGameBtn').addEventListener('click', function() {
   if (!selectedGame) return;
   
-  // Show loading/starting message
+  const game = games[selectedGame];
   const btn = this;
   const originalText = btn.textContent;
   btn.textContent = "LOADING...";
   btn.disabled = true;
   
-  // Store the selected game in localStorage for the how-to-play page
+  // Store the difficulty level in sessionStorage
+  sessionStorage.setItem('gameDifficulty', game.difficultyLevel);
   localStorage.setItem('selectedGame', selectedGame);
   
-  // Simulate brief loading then redirect to how-to-play page
   setTimeout(() => {
-    // Redirect to how-to-play page instead of showing alert
-    window.location.href = "how-to-play.html";
-    
-    // Reset button (though we're redirecting, this won't be visible)
+    window.location.href = "game-banana-puzzle.html";
     btn.textContent = originalText;
     btn.disabled = false;
   }, 800);
@@ -208,13 +226,15 @@ document.getElementById('backBtn').addEventListener('click', function() {
   window.location.href = "game.html";
 });
 
-// Add keyboard navigation
+// Keyboard navigation
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     window.location.href = "game.html";
   }
 });
-// Initialize music when page loads
+
+// Initialize on page load
 window.addEventListener('DOMContentLoaded', function() {
   initializeMusic();
+  updateGameAvailability();
 });

@@ -73,7 +73,7 @@
   border: none;
 }
 
-
+/* Body & Layout */
 body {
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
               url('../images/banana forest.png');
@@ -86,6 +86,7 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  padding-top: 100px;
 }
 
 .container {
@@ -96,6 +97,7 @@ body {
   align-items: center;
 }
 
+/* Header */
 .header {
   text-align: center;
   margin: 20px 0 40px;
@@ -114,6 +116,7 @@ body {
   opacity: 0.9;
 }
 
+/* Games Container */
 .games-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -122,6 +125,7 @@ body {
   margin-bottom: 40px;
 }
 
+/* Game Card Base */
 .game-card {
   background: rgba(0, 0, 0, 0.8);
   border: 2px solid #444;
@@ -133,13 +137,32 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 280px;
+  min-height: 350px;
+  position: relative;
+  overflow: hidden;
 }
 
-.game-card:hover {
+.game-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent, rgba(255, 204, 51, 0.1));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.game-card:hover:not(.locked) {
   transform: translateY(-5px);
   border-color: #ffcc33;
   box-shadow: 0 10px 20px rgba(255, 204, 51, 0.2);
+}
+
+.game-card:hover:not(.locked)::before {
+  opacity: 1;
 }
 
 .game-card.selected {
@@ -148,6 +171,47 @@ body {
   transform: translateY(-5px);
 }
 
+.game-card.locked {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.game-card.unlocked {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Card Badge */
+.card-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.9em;
+  border: 2px solid;
+}
+
+.easy-badge {
+  background: rgba(76, 175, 80, 0.3);
+  color: #4CAF50;
+  border-color: #4CAF50;
+}
+
+.medium-badge {
+  background: rgba(255, 152, 0, 0.3);
+  color: #FF9800;
+  border-color: #FF9800;
+}
+
+.hard-badge {
+  background: rgba(244, 67, 54, 0.3);
+  color: #f44336;
+  border-color: #f44336;
+}
+
+/* Game Icon */
 .game-icon {
   font-size: 60px;
   margin-bottom: 20px;
@@ -155,8 +219,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 20px;
 }
 
+/* Game Card Text */
 .game-card h2 {
   font-size: 24px;
   color: #ffcc33;
@@ -166,23 +232,61 @@ body {
 .game-card p {
   font-size: 16px;
   opacity: 0.8;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   flex-grow: 1;
 }
 
-.difficulty {
-  font-size: 14px;
-  padding: 5px 15px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  margin-top: 10px;
+/* Difficulty Info */
+.difficulty-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 12px;
+  border-radius: 8px;
+  margin: 15px 0;
+  width: 100%;
+  font-size: 0.95em;
 }
 
+.difficulty-info span {
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.puzzles, .time {
+  background: rgba(255, 204, 51, 0.2);
+  color: #ffcc33;
+}
+
+.min-score {
+  background: rgba(76, 175, 80, 0.2);
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+/* Level Status */
+.level-status {
+  margin-top: 10px;
+  font-size: 0.95em;
+  font-weight: bold;
+}
+
+.level-status:not(.locked-status) {
+  color: #4CAF50;
+}
+
+.locked-status {
+  color: #ff6b6b;
+}
+
+/* Selected Game Info */
 .selected-game-info {
   background: rgba(0, 0, 0, 0.7);
   border-radius: 15px;
   padding: 30px;
-  width: 80%;
+  width: 85%;
+  max-width: 600px;
   text-align: center;
   margin-bottom: 30px;
   border: 2px solid #ffcc33;
@@ -197,6 +301,7 @@ body {
 #gamePreview p {
   font-size: 18px;
   margin-bottom: 25px;
+  line-height: 1.6;
 }
 
 #startGameBtn {
@@ -215,6 +320,7 @@ body {
 #startGameBtn:hover:not(:disabled) {
   background: #ffd966;
   transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(255, 204, 51, 0.3);
 }
 
 #startGameBtn:disabled {
@@ -224,8 +330,49 @@ body {
   transform: none;
 }
 
+/* Game Rules */
+.game-rules {
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 15px;
+  padding: 25px;
+  width: 85%;
+  max-width: 600px;
+  margin-bottom: 30px;
+  border: 2px solid #ffcc33;
+}
+
+.game-rules h3 {
+  font-size: 22px;
+  color: #ffcc33;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.game-rules ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.game-rules li {
+  background: rgba(255, 204, 51, 0.1);
+  padding: 10px 15px;
+  border-radius: 8px;
+  border-left: 3px solid #ffcc33;
+  font-size: 0.95em;
+  text-align: left;
+}
+
+.game-rules li::before {
+  content: '→ ';
+  color: #ffcc33;
+  font-weight: bold;
+}
+
+/* Footer Navigation */
 .footer {
-  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 #backBtn {
@@ -241,28 +388,83 @@ body {
 
 #backBtn:hover {
   background: rgba(255, 255, 255, 0.2);
+  border-color: #ffcc33;
 }
 
-/* Responsive adjustments */
-@media (max-width: 900px) {
+.page-footer {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9em;
+  margin-top: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
   .games-container {
     grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+  
+  .game-card {
+    min-height: 320px;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  body {
+    padding-top: 80px;
+  }
+  
   .games-container {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
   
   .header h1 {
     font-size: 32px;
   }
   
-  .selected-game-info {
-    width: 95%;
+  .header p {
+    font-size: 16px;
   }
-    .music-controls {
+  
+  .game-card {
+    min-height: 300px;
+  }
+  
+  .game-icon {
+    font-size: 50px;
+    height: 70px;
+    margin-top: 15px;
+  }
+  
+  .game-card h2 {
+    font-size: 22px;
+  }
+  
+  .game-card p {
+    font-size: 15px;
+  }
+  
+  .selected-game-info,
+  .game-rules {
+    width: 95%;
+    padding: 20px;
+  }
+  
+  #gamePreview h3 {
+    font-size: 24px;
+  }
+  
+  #gamePreview p {
+    font-size: 16px;
+  }
+  
+  #startGameBtn {
+    padding: 12px 30px;
+    font-size: 18px;
+  }
+  
+  .music-controls {
     top: 10px;
     left: 10px;
     padding: 8px 12px;
@@ -270,5 +472,122 @@ body {
   
   #volumeSlider {
     width: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+    padding-top: 70px;
+  }
+  
+  .container {
+    padding: 10px;
+  }
+  
+  .header h1 {
+    font-size: 26px;
+    margin-bottom: 8px;
+  }
+  
+  .header p {
+    font-size: 14px;
+  }
+  
+  .games-container {
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+  
+  .game-card {
+    min-height: 280px;
+    padding: 20px 15px;
+  }
+  
+  .card-badge {
+    font-size: 0.85em;
+    padding: 4px 10px;
+  }
+  
+  .game-icon {
+    font-size: 45px;
+    height: 60px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .game-card h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .game-card p {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+  
+  .difficulty-info {
+    gap: 6px;
+    padding: 10px;
+    margin: 12px 0;
+    font-size: 0.85em;
+  }
+  
+  .selected-game-info,
+  .game-rules {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  #gamePreview h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+  
+  #gamePreview p {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+  
+  #startGameBtn {
+    padding: 10px 25px;
+    font-size: 16px;
+  }
+  
+  .game-rules h3 {
+    font-size: 18px;
+  }
+  
+  .game-rules li {
+    font-size: 0.85em;
+    padding: 8px 12px;
+  }
+  
+  #backBtn {
+    padding: 8px 20px;
+    font-size: 14px;
+  }
+  
+  .page-footer {
+    font-size: 0.8em;
+    margin-top: 20px;
+  }
+  
+  .music-controls {
+    top: 8px;
+    left: 8px;
+    padding: 6px 10px;
+    gap: 8px;
+  }
+  
+  .music-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  }
+  
+  #volumeSlider {
+    width: 50px;
   }
 }
