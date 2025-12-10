@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achievements - Banana Realm</title>
+    <link rel="stylesheet" href="../css/achievements.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🏆 YOUR ACHIEVEMENTS 🏆</h1>
+            <p>Track your progress and unlocked achievements</p>
+        </header>
+
+        <!-- Stats Overview -->
+        <div class="stats-overview" id="statsOverview">
+            <div class="stat-card">
+                <div class="stat-icon">🎮</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="totalGames">0</div>
+                    <div class="stat-label">Games Played</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="totalScore">0</div>
+                    <div class="stat-label">Total Score</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="achievementCount">0</div>
+                    <div class="stat-label">Achievements</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="averageScore">0</div>
+                    <div class="stat-label">Avg Score</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Difficulty Stats -->
+        <div class="difficulty-stats">
+            <h3>📈 DIFFICULTY STATISTICS</h3>
+            <div class="difficulty-cards">
+                <div class="difficulty-card easy">
+                    <div class="difficulty-header">
+                        <span class="difficulty-icon">🍌</span>
+                        <span class="difficulty-title">EASY</span>
+                    </div>
+                    <div class="difficulty-stats-grid">
+                        <div class="diff-stat">
+                            <span class="diff-label">High Score:</span>
+                            <span class="diff-value" id="easyHighScore">0</span>
+                        </div>
+                        <div class="diff-stat">
+                            <span class="diff-label">Games Played:</span>
+                            <span class="diff-value" id="easyGames">0</span>
+                        </div>
+                        <div class="diff-stat">
+                            <span class="diff-label">Completed:</span>
+                            <span class="diff-value" id="easyCompleted">No</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="difficulty-card medium">
+                    <div class="difficulty-header">
+                        <span class="difficulty-icon">🍌🍌</span>
+                        <span class="difficulty-title">MEDIUM</span>
+                    </div>
+                    <div class="difficulty-stats-grid">
+                        <div class="diff-stat">
+                            <span class="diff-label">High Score:</span>
+                            <span class="diff-value" id="mediumHighScore">0</span>
+                        </div>
+                        <div class="diff-stat">
+                            <span class="diff-label">Games Played:</span>
+                            <span class="diff-value" id="mediumGames">0</span>
+                        </div>
+                        <div class="diff-stat">
+                            <span class="diff-label">Completed:</span>
+                            <span class="diff-value" id="mediumCompleted">No</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="difficulty-card hard">
+                    <div class="difficulty-header">
+                        <span class="difficulty-icon">🍌🍌🍌</span>
+                        <span class="difficulty-title">HARD</span>
+                    </div>
+                    <div class="difficulty-stats-grid">
+                        <div class="diff-stat">
+                            <span class="diff-label">High Score:</span>
+                            <span class="diff-value" id="hardHighScore">0</span>
+                        </div>
+                        <div class="diff-stat">
+                            <span class="diff-label">Games Played:</span>
+                            <span class="diff-value" id="hardGames">0</span>
+                        </div>
+                        <div class="diff-stat">
+                            <span class="diff-label">Completed:</span>
+                            <span class="diff-value" id="hardCompleted">No</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Achievements Grid -->
+        <div class="achievements-section">
+            <h3>🎯 ACHIEVEMENTS</h3>
+            <div class="achievements-grid" id="achievementsGrid">
+                <!-- Achievements will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="nav-btn" id="backBtn">← BACK TO HUB</button>
+            <button class="nav-btn" id="leaderboardBtn">🏆 VIEW LEADERBOARD</button>
+        </div>
+    </div>
+
+    <script type="module" src="../js/achievements-page.js"></script>
+</body>
+</html>
