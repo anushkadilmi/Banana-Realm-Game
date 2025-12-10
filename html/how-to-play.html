@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Play - Banana Realm</title>
+  <link rel="stylesheet" href="../css/how-to-play.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Header Section -->
+    <header class="header">
+      <h1>HOW TO PLAY</h1>
+    </header>
+
+    <!-- Main Instructions Container -->
+    <div class="instructions-container">
+      <div class="instruction-section">
+        <!-- Intro Text with Difficulty Info -->
+        <p class="intro-text">SELECT YOUR LEVEL TO BEGIN YOUR ADVENTURE.</p>
+        
+        <!-- Instructions -->
+        <div class="instruction-item">
+          <div class="instruction-number">1</div>
+          <div class="instruction-text">SELECT A NUMBER FROM 0-9 THAT SOLVES THE MATH PUZZLE</div>
+        </div>
+        
+        <div class="instruction-item">
+          <div class="instruction-number">2</div>
+          <div class="instruction-text">YOU HAVE LIMITED TIME - DIFFICULTY AFFECTS TIME LIMIT</div>
+        </div>
+        
+        <div class="instruction-item">
+          <div class="instruction-number">3</div>
+          <div class="instruction-text">USE HINTS WISELY - YOU HAVE UP TO 5 HINTS!</div>
+        </div>
+        
+        <div class="instruction-item">
+          <div class="instruction-number">4</div>
+          <div class="instruction-text">EACH CORRECT ANSWER EARNS POINTS BASED ON YOUR LEVEL</div>
+        </div>
+        
+        <div class="instruction-item">
+          <div class="instruction-number">5</div>
+          <div class="instruction-text">REACH THE MINIMUM SCORE TO PASS AND UNLOCK THE NEXT LEVEL!</div>
+        </div>
+
+        <!-- Lives System Info -->
+        <div class="lives-info">
+          <div class="info-box">
+            <h3>❤️ LIVES SYSTEM</h3>
+            <p>You get 3 lives per game session</p>
+            <ul>
+              <li>Wrong answer = -1 life</li>
+              <li>Time runs out = -1 life</li>
+              <li>All lives gone = Game Over</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Difficulty Requirements -->
+        <div class="difficulty-requirements">
+          <div class="req-box easy-box">
+            <h4>🍌 EASY</h4>
+            <p>60s per puzzle</p>
+            <p>Min Score: 300</p>
+          </div>
+          <div class="req-box medium-box">
+            <h4>🌴 MEDIUM</h4>
+            <p>45s per puzzle</p>
+            <p>Min Score: 500</p>
+          </div>
+          <div class="req-box hard-box">
+            <h4>🛡️ HARD</h4>
+            <p>30s per puzzle</p>
+            <p>Min Score: 800</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button id="continueBtn" class="btn-continue">CONTINUE</button>
+      <button id="backBtn" class="btn-back">BACK</button>
+    </div>
+  </div>
+
+  <script src="../js/how-to-play.js"></script>
+</body>
+</html>
